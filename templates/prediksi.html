@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediksi Pendapatan LSTM</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>📈 Hasil Prediksi LSTM</h1>
+  </header>
+
+  <main>
+    <form action="/" method="post" class="filter-form">
+      <input type="hidden" name="category" value="{{ selected_category }}">
+      <input type="hidden" name="region" value="{{ selected_region }}">
+      <button type="submit">⬅ Kembali ke Data Historis</button>
+    </form>
+
+    <section class="graph">{{ graph_html | safe }}</section>
+    <section class="desc">
+      <h2>💬 Interpretasi</h2>
+      <p>Prediksi ini menggunakan model LSTM yang dilatih berdasarkan tren historis pendapatan,
+         dengan mempertimbangkan fitur <b>Units Sold</b> dan <b>Unit Price</b>.
+         Garis oranye menunjukkan hasil prediksi, sedangkan garis biru adalah data aktual.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Roy Bakti Surya Medal | Universitas Bale Bandung</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Prediksi LSTM</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>📊 Dashboard Prediksi Penjualan Online</h1>
+  </header>
+
+  <main>
+    <form action="/" method="post" class="filter-form">
+      <label>Kategori Produk:</label>
+      <select name="category">
+        {% for c in categories %}
+          <option value="{{ c }}" {% if c == selected_category %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Wilayah Penjualan:</label>
+      <select name="region">
+        {% for r in regions %}
+          <option value="{{ r }}" {% if r == selected_region %}selected{% endif %}>{{ r }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">Tampilkan</button>
+    </form>
+
+    {% if message %}
+      <div class="alert">{{ message|safe }}</div>
+    {% endif %}
+
+    <section class="graph card">{{ graph_html | safe }}</section>
+
+    <section class="summary card">
+      <h2>📋 Ringkasan Data</h2>
+      <ul>
+        <li>Jumlah Hari Data: {{ total_days }}</li>
+        <li>Rata-rata Pendapatan: ${{ "%.2f"|format(avg_revenue) }}</li>
+        <li>Pendapatan Tertinggi: ${{ "%.2f"|format(max_revenue) }}</li>
+      </ul>
+    </section>
+
+    <form action="/prediksi" method="post">
+      <input type="hidden" name="category" value="{{ selected_category }}">
+      <input type="hidden" name="region" value="{{ selected_region }}">
+      <button type="submit" class="pred-btn">🔮 Lihat Prediksi LSTM</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 Roy Bakti Surya Medal | Universitas Bale Bandung</p>
+  </footer>
+</body>
+</html>
